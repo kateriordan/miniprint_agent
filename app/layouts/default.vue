@@ -7,6 +7,17 @@ const searchOpen = ref(false);
 
 const { threads, pending, refresh } = useThreadList();
 
+const tradeNav = [
+  { type: "label" as const, label: "Trades" },
+  { label: "Incoming offers", icon: "i-lucide-inbox", to: "/trades", exact: true },
+  { label: "Opportunities", icon: "i-lucide-sparkles", to: "/trades/opportunities" },
+  { label: "My inventory", icon: "i-lucide-library", to: "/inventory" },
+  { label: "Collectors", icon: "i-lucide-users", to: "/collectors" },
+  { label: "Catalog", icon: "i-lucide-badge-check", to: "/catalog" },
+  { label: "Import messages", icon: "i-lucide-file-down", to: "/import" },
+  { label: "System health", icon: "i-lucide-activity", to: "/health" },
+];
+
 const searchGroups = computed(() => [
   {
     id: "actions",
@@ -105,6 +116,13 @@ defineShortcuts({
             </div>
           </template>
         </UNavigationMenu>
+
+        <UNavigationMenu
+          :items="tradeNav"
+          :collapsed="collapsed"
+          orientation="vertical"
+          class="mt-4"
+        />
 
         <ChatThreadList
           v-if="!collapsed"

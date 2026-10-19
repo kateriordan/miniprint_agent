@@ -12,6 +12,10 @@
 
 Open source personal agent template. Web chat, Slack, GitHub, Linear, and persistent memory — one codebase, durable sessions.
 
+## MiniPrint Trade Intelligence
+
+This fork adds a private trade-tracking agent for miniature art-print collectors: photo-documented inventory, Messenger export import, an evidence-linked trade ledger, and recommendations verified against [MiniPrint.io](https://miniprint.io). See **[docs/MINIPRINT.md](./docs/MINIPRINT.md)** for what is implemented, what was investigated, and what is not possible (there is no supported live API for a personal Messenger inbox).
+
 ## Features
 
 ### Web Chat — Threads That Persist
