@@ -15,6 +15,8 @@ Durable personal AI assistant built with Eve and Nuxt.
 | `pnpm auth:schema` | Regenerate the Better Auth Drizzle schema |
 | `pnpm db:generate` | Regenerate the auth schema, then the Drizzle migration |
 | `pnpm db:migrate` | Apply migrations |
+| `pnpm test` | Unit tests (vitest) |
+| `pnpm test:integration` | DB-backed tests — needs a disposable, migrated `DATABASE_URL` |
 
 ## Structure
 
@@ -33,6 +35,7 @@ personal-agent-template/
 - [Environment](docs/ENVIRONMENT.md) — Environment variables
 - [Customization](docs/CUSTOMIZATION.md) — Rename agent, add tools, integrations
 - [README](README.md) — Quick start and feature overview
+- [MiniPrint](docs/MINIPRINT.md) — Trade agent: catalog, Messenger import, ledger, evaluation, limits
 
 ## Eve Framework
 
@@ -69,3 +72,10 @@ agent maintains them with `profile__save_memory` and `profile__remove_memory`.
 - [`agent/agent.ts`](agent/agent.ts) — AI model
 
 See [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md) for details.
+
+## MiniPrint rules
+
+- MiniPrint.io is the only source of rarity. Never fill catalog fields from model output.
+- AI-recorded ledger changes may only set `AI_SETTABLE_STATUSES`; terminal statuses become `proposedStatus` (enforced in `server/utils/mp/ledger.ts`).
+- Agent tools take the owner id from the eve session (`agent/lib/mp-internal.ts`), never from model input.
+- New tables need an RLS line in a migration (see `0002_enable_rls.sql`).

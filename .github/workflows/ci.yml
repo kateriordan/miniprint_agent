@@ -46,6 +46,15 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      - name: Unit tests
+        run: pnpm test
+
+      - name: Migrate
+        run: pnpm db:migrate
+
+      - name: Integration tests
+        run: pnpm test:integration
+
       # Covers app/, server/ and shared/ (nuxt typecheck) plus agent/ (tsc).
       - name: Typecheck
         run: pnpm typecheck

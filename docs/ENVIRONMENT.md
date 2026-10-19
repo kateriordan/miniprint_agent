@@ -146,3 +146,15 @@ pnpm db:migrate
 
 Pointing `DATABASE_URL` at a fresh Neon branch does the same without dropping
 anything.
+
+## MiniPrint
+
+| Variable | Required | Purpose |
+|----------|----------|---------|
+| `DATABASE_URL` | Yes | Supabase works: use the **session pooler** (port 5432) or direct connection string with `?sslmode=require`. The transaction pooler (port 6543) does not support the prepared statements `postgres-js` uses. |
+| `AI_GATEWAY_API_KEY` | Locally | Vercel AI Gateway key for photo identification and message analysis. On Vercel, the project's OIDC token is used instead. Without it, those jobs fail visibly on **System health** — nothing is guessed. |
+| `MP_ALLOWED_EMAILS` | Recommended | Comma-separated emails allowed to sign up. If unset, only the first account can ever be created. |
+| `MP_ANALYSIS_MODEL` | No | AI Gateway model id for message analysis (default `anthropic/claude-sonnet-5`). |
+| `MP_VISION_MODEL` | No | Model id for photo identification (defaults to the analysis model). Must support images. |
+
+Before importing real messages, enable Zero Data Retention for the team in the AI Gateway settings — see [MiniPrint → Security and privacy](./MINIPRINT.md#8-security-and-privacy).
