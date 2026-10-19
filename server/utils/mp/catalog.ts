@@ -132,8 +132,23 @@ export function parsePrintPage(html: string, url: string): FetchedPrint {
   };
 }
 
+/** One retry for timeouts, network errors and 5xx; a 404 is final. */
+async function fetchWithRetry(url: string): Promise<Response> {
+  try {
+    const response = await politeFetch(url);
+    if (response.status < 500) {
+      return response;
+    }
+  }
+  catch {
+    // fall through to the retry
+  }
+  await new Promise(resolve => setTimeout(resolve, 3_000));
+  return politeFetch(url);
+}
+
 export async function fetchPrintPage(url: string): Promise<FetchedPrint> {
-  const response = await politeFetch(url);
+  const response = await fetchWithRetry(url);
   if (response.status === 404) {
     throw new CatalogNotFoundError(url);
   }
